@@ -1,0 +1,19 @@
+# Terraform
+.terraform/
+.terraform/*
+terraform.tfstate
+terraform.tfstate.*
+crash.log
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Env files
+.env
+.env.*
+
+# Logs and temp
+*.log
+s3_objects.txt

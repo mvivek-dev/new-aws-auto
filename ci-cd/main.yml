@@ -1,0 +1,51 @@
+name: DevOps Assignment CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build-test-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    # 1. Checkout code
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Setup Python
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    # 3. Install Python dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # 4. Run Python tests
+    - name: Run tests
+      run: |
+        pytest tests/
+
+    # 5. Setup Terraform
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.6.6
+
+    # 6. Terraform Init (NO backend)
+    - name: Terraform Init
+      working-directory: terraform
+      run: |
+        terraform init -backend=false
+
+    # 7. Terraform Validate
+    - name: Terraform Validate
+      working-directory: terraform
+      run: |
+        terraform validate
