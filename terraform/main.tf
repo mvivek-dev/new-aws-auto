@@ -23,7 +23,7 @@ module "ec2_app" {
   vpc_id        = var.vpc_id
   subnet_id     = var.subnet_id
   key_name      = var.key_name
-  s3_bucket_arn = var.s3_bucket_arn
+  s3_bucket_arn = module.s3_logs.bucket_arn
 
   tags = local.common_tags
 }
