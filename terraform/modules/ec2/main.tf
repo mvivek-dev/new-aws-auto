@@ -83,9 +83,11 @@ resource "aws_instance" "this" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = "t3.micro"
   subnet_id              = var.subnet_id
-  key_name              = "mumbai-key"
-  
+  key_name               = var.key_name
+
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
+
+  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
   tags = merge(var.tags, {
     Name = "${var.project_name}-${var.environment}-ec2"

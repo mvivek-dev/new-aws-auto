@@ -18,13 +18,12 @@ module "s3_logs" {
 module "ec2_app" {
   source = "./modules/ec2"
 
-  vpc_id        = var.vpc_id
-  subnet_id     = var.public_subnet_id
-  project_name  = var.project_name
+  vproject_name  = var.project_name
   environment   = var.environment
-
-  
-  s3_bucket_arn = module.s3_logs.bucket_arn
+  vpc_id        = var.vpc_id
+  subnet_id     = var.subnet_id
+  key_name      = var.key_name
+  s3_bucket_arn = var.s3_bucket_arn
 
   tags = local.common_tags
 }
