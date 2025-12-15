@@ -18,7 +18,7 @@ module "s3_logs" {
 module "ec2_app" {
   source = "./modules/ec2"
 
-  vproject_name  = var.project_name
+  project_name  = var.project_name
   environment   = var.environment
   vpc_id        = var.vpc_id
   subnet_id     = var.subnet_id
